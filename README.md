@@ -155,19 +155,6 @@ The engine was tested with sample student questions covering assignment submissi
 
 One problem was found during testing: a question about a personal result with no matching topic returned the generic "could not verify" message without any escalation. The engine was corrected so that personal-record questions are now escalated to the correct official contact even when no knowledge-base record matches.
 
-### Step 10: Hosting options were researched
-Free hosting options were reviewed. GitHub Pages can host only static files, so the chat widget (`index.html`) can be placed there, while the Python backend needs a separate host.
-
-Options reviewed for the backend:
-- **Render:** suited to FastAPI; the free service sleeps after inactivity, which causes a slow first response.
-- **Hugging Face Spaces:** runs Docker apps on a free tier; the app must listen on port 7860.
-- **Google Cloud Run:** free monthly allowance; needs a Google account with billing set up.
-- **PythonAnywhere:** beginner-friendly, but the free tier does not support FastAPI (no ASGI). A Flask version of `app.py` would be needed.
-
-Free-tier limits change often, so the current terms of any chosen provider should be checked before deployment.
-
----
-
 ## 6. How to Run the Project
 
 ### Install
@@ -203,15 +190,6 @@ curl -X POST http://localhost:8000/chat \
 | `escalate` | `true` when the student is directed to a human contact |
 | `source` | Official source title and URL |
 | `contact` | Contact details shown to the student |
-
----
-
-## 7. Deploying to a Webpage
-
-1. The backend (`app.py`, `chatbot.py`, `knowledge_base.json`, `requirements.txt`) is deployed to a free Python host.
-2. The deployed backend address is copied into the `API_URL` variable in `index.html`.
-3. The `index.html` file is pushed to a GitHub repository and published with GitHub Pages (repository Settings, then Pages).
-4. In `app.py`, `allow_origins=["*"]` is replaced with the exact website address (for example `https://username.github.io`) so that only the official site can call the API.
 
 ---
 
